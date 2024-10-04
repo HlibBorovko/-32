@@ -1,0 +1,48 @@
+package com.example.letterreplacer
+
+import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val inputText = findViewById<EditText>(R.id.inputText)
+        val replaceButton = findViewById<Button>(R.id.replaceButton)
+        val outputText = findViewById<TextView>(R.id.outputText)
+
+        replaceButton.setOnClickListener {
+            val userInput = inputText.text.toString()
+            val result = replaceLetters(userInput)
+            outputText.text = result
+        }
+    }
+
+    // Функція для заміни кожної літери на наступну
+    private fun replaceLetters(input: String): String {
+        val result = StringBuilder()
+
+        for (char in input) {
+            if (char.isLetter()) {
+                if (char == 'z') {
+                    result.append('a')
+                } else if (char == 'Z') {
+                    result.append('A')
+                } else {
+                    result.append(char + 1)
+                }
+            } else {
+                result.append(char)
+            }
+        }
+
+        return result.toString()
+    }
+}
